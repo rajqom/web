@@ -3,5 +3,9 @@
     "lucide-react": "^0.456.0",
     "shadcn": "^2.1.6",
     "next": "14.1.0"
+  },
+  "scripts": {
+    "build": "next build",
+    "vercel-build": "next build"
   }
 }
