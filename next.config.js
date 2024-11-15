@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-      domains: ['your-image-domain.com'], // Add your image domains here
-    },
-  }
-  
-  module.exports = nextConfig
+  output: 'standalone',
+  images: {
+    domains: [], // Add any external image domains you're using
+    unoptimized: true
+  },
+}
+
+module.exports = nextConfig

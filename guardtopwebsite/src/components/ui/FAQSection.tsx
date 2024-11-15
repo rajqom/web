@@ -23,20 +23,12 @@ const faqData: FAQItem[] = [
     answer: "Yes, we provide 24/7 emergency repair services for urgent roofing issues. Our team typically responds within 2-4 hours for emergency situations to prevent further damage to your property."
   },
   {
-    question: "How do I know if I need a roof replacement or just repairs?",
-    answer: "Several factors determine this: age of your roof, extent of damage, and cost-effectiveness of repairs. We provide free inspections to assess your roof's condition and recommend the most appropriate solution based on our findings."
-  },
-  {
     question: "What roofing materials do you recommend?",
     answer: "Our recommendations vary based on your specific needs, climate, budget, and architectural style. We offer a wide range of materials including asphalt shingles, metal roofing, tile, and flat roof systems. During consultation, we'll discuss the pros and cons of each option."
   },
   {
     question: "Are you licensed and insured?",
     answer: "Yes, we are fully licensed, bonded, and insured. We carry comprehensive liability insurance and workers' compensation coverage to protect both our clients and employees throughout every project."
-  },
-  {
-    question: "How do you handle unexpected weather during installation?",
-    answer: "We closely monitor weather conditions and plan accordingly. If unexpected weather occurs, we ensure your property is properly protected with temporary coverage until work can safely resume."
   },
   {
     question: "What financing options do you offer?",
@@ -46,10 +38,6 @@ const faqData: FAQItem[] = [
     question: "How long will my new roof last?",
     answer: "The lifespan of your roof depends on the material chosen and maintenance. Asphalt shingles typically last 20-30 years, metal roofs 40-70 years, and tile roofs 50+ years. Regular maintenance can help extend these lifespans."
   },
-  {
-    question: "Do you provide maintenance services after installation?",
-    answer: "Yes, we offer regular maintenance programs to extend the life of your roof. This includes annual inspections, cleaning, minor repairs, and preventative care to ensure your roof performs optimally."
-  }
 ]
 
 export function FaqSection() {
@@ -62,52 +50,54 @@ export function FaqSection() {
   return (
     <section className="w-full py-24 sm:py-32 bg-white">
       <div className="container px-4 max-w-7xl mx-auto">
-        <div className="mx-auto max-w-3xl text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            Frequently Asked Questions
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Find answers to common questions about our roofing services
-          </p>
-        </div>
-
-        <div className="mx-auto max-w-3xl divide-y divide-gray-100">
-          {faqData.map((faq, index) => (
-            <div key={index} className="py-6">
-              <button 
-                onClick={() => toggleFAQ(index)}
-                className="flex w-full items-center justify-between text-left"
-              >
-                <h3 className="text-base font-medium text-gray-900 group-hover:text-primary transition-colors">
-                  {faq.question}
-                </h3>
-                <ChevronDown 
-                  className={`h-5 w-5 text-primary transition-transform duration-200 flex-shrink-0 ${
-                    openIndex === index ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              {openIndex === index && (
-                <div className="mt-3">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </div>
-              )}
+        <div className="grid gap-12 lg:grid-cols-[0.8fr,1.2fr] items-start justify-center mx-auto max-w-6xl">
+          {/* Left Column */}
+          <div className="space-y-8 max-w-md mx-auto lg:mx-0">
+            <div>
+              <h3 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
+                Frequently Asked Questions
+              </h3>
+              <p className="mt-4 text-base text-muted-foreground leading-relaxed">
+                Find answers to common questions about our services. Can't find what you're looking for? Our team is here to help.
+              </p>
             </div>
-          ))}
-        </div>
+            <div className="inline-flex flex-col items-start gap-2">
+              <Button size="lg" variant="outline">
+                Contact Our Support Team
+              </Button>
+              <span className="text-sm text-muted-foreground">
+                Available 24/7 for emergency support
+              </span>
+            </div>
+          </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-base text-muted-foreground mb-4">
-            Still have questions?
-          </p>
-          <Button 
-            variant="outline" 
-            className="hover:bg-primary hover:text-white transition-colors"
-          >
-            Contact Our Support Team
-          </Button>
+          {/* Right Column */}
+          <div className="divide-y divide-gray-100 max-w-xl mx-auto lg:mx-0">
+            {faqData.map((faq, index) => (
+              <div key={index} className="py-6">
+                <button 
+                  onClick={() => toggleFAQ(index)}
+                  className="flex w-full items-center justify-between text-left"
+                >
+                  <h3 className="text-lg font-medium text-gray-900 group-hover:text-primary transition-colors sm:text-xl">
+                    {faq.question}
+                  </h3>
+                  <ChevronDown 
+                    className={`h-5 w-5 text-primary transition-transform duration-200 flex-shrink-0 ${
+                      openIndex === index ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                {openIndex === index && (
+                  <div className="mt-3">
+                    <p className="text-base text-muted-foreground leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

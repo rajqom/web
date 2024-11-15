@@ -4,11 +4,20 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Shield, Home, Building2, Star, Facebook, Instagram, Linkedin, Youtube, ChevronLeft, ChevronRight, Phone, Mail, Clock, ChevronDown, Menu, X } from 'lucide-react'
 import { FaqSection } from "@/components/ui/FAQSection"
 import { TestimonialsCarousel } from '@/components/ui/TestimonialsCarousel'
-import { useState, FormEvent } from 'react'
+import { useState } from 'react'
+import { typography } from '@/styles/typography'
+import { services } from '@/constants/services'
+import { ProjectsSection } from "@/components/ui/ProjectsSection"
+import { Clock, Home, Shield, Menu, X, ChevronDown, ChevronRight, Building2, Wrench, Settings, Phone, Mail, Facebook, Instagram, Linkedin, Youtube } from "lucide-react"
+
+interface Service {
+  number: string;
+  title: string;
+  description: string;
+  href: string;
+}
 
 export default function Homepage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -219,15 +228,13 @@ export default function Homepage() {
                 >
                   Contact Us
                 </Link>
-                <div className="pt-4 border-t">
-                  <Button className="w-full" asChild>
-                    <Link 
-                      href="#contact"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Book a Call
-                    </Link>
+                <div className="pt-8 border-t flex flex-col items-end">
+                  <Button size="lg">
+                    Schedule Free Consultation
                   </Button>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    No obligation, same-day response
+                  </p>
                 </div>
               </div>
             </nav>
@@ -254,271 +261,269 @@ export default function Homepage() {
           {/* Content */}
           <div className="container px-4 py-24 sm:py-32 md:py-40 max-w-7xl mx-auto relative">
             <div className="mx-auto max-w-4xl text-center">
-              <h1 className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl">
+              <h1 className={typography.h1}>
                 Expert Roofing Solutions for Every Need
               </h1>
-              <p className="mt-6 text-lg text-muted-foreground md:text-xl">
+              <p className={typography.lead}>
                 Whether you're a homeowner looking for a lasting upgrade or a property manager needing a commercial roof, we provide top-quality service tailored to your needs.
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
                 <div className="flex flex-col items-center">
                   <Button size="lg" className="w-full sm:w-auto">Get a Free Estimate</Button>
-                  <span className="mt-2 text-sm text-muted-foreground">For homeowners</span>
+                  <span className={typography.caption}>For homeowners</span>
                 </div>
                 <div className="flex flex-col items-center">
                   <Button size="lg" variant="outline" className="w-full sm:w-auto">Schedule Consultation</Button>
-                  <span className="mt-2 text-sm text-muted-foreground">For property managers</span>
+                  <span className={typography.caption}>For property managers</span>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="services" className="w-full py-24 sm:py-32 bg-muted/30">
+        <section id="services" className="w-full py-24 sm:py-32 bg-gradient-to-b from-muted/50 to-background">
           <div className="container px-4 max-w-7xl mx-auto">
-            <div className="mx-auto max-w-3xl text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+            {/* Introduction Header */}
+            <div className="max-w-3xl mx-auto text-center mb-20">
+              <span className={`${typography.sectionLabel} mb-3 block`}>
                 Our Services
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Professional roofing solutions tailored to your needs, delivering excellence in every project
+              </span>
+              <h3 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Roofing Solutions
+              </h3>
+              <p className={`mt-6 ${typography.sectionSubtitle}`}>
+                Our commitment is to quality ensures lasting protection for your property.
               </p>
             </div>
-            <div className="grid gap-10 md:grid-cols-2 max-w-6xl mx-auto">
-              <Card className="flex flex-col p-8 hover:shadow-lg transition-shadow duration-300">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10">
-                    <Home className="h-7 w-7 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-semibold mb-1">Residential Roofing</h3>
-                    <p className="text-muted-foreground">Expert solutions for homeowners</p>
-                  </div>
-                </div>
-                <div className="space-y-6 flex-1">
-                  <div className="grid gap-4">
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2.5 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium text-base">Premium Asphalt Shingle Installation</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          High-quality materials with expert installation
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2.5 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium text-base">Custom Metal Roofing Solutions</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Durable and stylish metal roofing options
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2.5 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium text-base">Traditional Slate and Tile Systems</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Classic beauty with modern durability
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2.5 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium text-base">Sustainable Green Roofing Options</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Eco-friendly solutions for modern homes
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-8">
-                  <Button className="w-full" variant="default">
-                    Learn More About Residential
-                  </Button>
-                </div>
-              </Card>
 
-              <Card className="flex flex-col p-8 hover:shadow-lg transition-shadow duration-300">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10">
-                    <Building2 className="h-7 w-7 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-semibold mb-1">Commercial Roofing</h3>
-                    <p className="text-muted-foreground">Enterprise-grade solutions</p>
-                  </div>
+            {/* Main Content Grid */}
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              {/* Left Column - Image */}
+              <div className="relative h-[640px] rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/roofing-expert.jpg"
+                  alt="Professional Roofing Services"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-8 max-w-lg">
+                  <h3 className={`${typography.h3} text-white mb-4`}>
+                    We&apos;re Committed to Excellence
+                  </h3>
+                  <p className="text-white/90 text-lg leading-relaxed">
+                    With decades of experience and a dedication to quality, we deliver superior roofing solutions for every project.
+                  </p>
                 </div>
-                <div className="space-y-6 flex-1">
-                  <div className="grid gap-4">
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2.5 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium text-base">Industrial Built-up Roofing (BUR)</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Multi-layer protection for commercial buildings
-                        </p>
+              </div>
+
+              {/* Right Column - Services List */}
+              <div className="space-y-6">
+                {services.map((service) => (
+                  <Link 
+                    key={service.title} 
+                    href={service.href}
+                    className="group block"
+                  >
+                    <div className="flex items-start gap-6 p-6 rounded-xl hover:bg-muted/50 transition-colors border border-transparent hover:border-primary/20">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                        {service.title.includes('Residential') && <Home className="h-6 w-6 text-primary" />}
+                        {service.title.includes('Commercial') && <Building2 className="h-6 w-6 text-primary" />}
+                        {service.title.includes('Repairs') && <Wrench className="h-6 w-6 text-primary" />}
+                        {service.title.includes('Maintenance') && <Settings className="h-6 w-6 text-primary" />}
+                      </div>
+                      
+                      <div className="flex-grow">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className={typography.featureTitle}>{service.title}</h4>
+                          <ChevronRight className="h-5 w-5 text-primary transform group-hover:translate-x-1 transition-transform" />
+                        </div>
+                        <p className={typography.featureDescription}>{service.description}</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2.5 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium text-base">TPO & EPDM Membranes</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          High-performance single-ply roofing systems
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2.5 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium text-base">Modified Bitumen Solutions</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Advanced protection for flat roofs
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2.5 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium text-base">Cool Roof Systems</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Energy-efficient roofing solutions
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-8">
-                  <Button className="w-full" variant="default">
-                    Learn More About Commercial
+                  </Link>
+                ))}
+                
+                {/* Add CTA Button */}
+                <div className="pt-8 border-t">
+                  <Button size="lg">
+                    Schedule Free Consultation
                   </Button>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    No obligation, same-day response
+                  </p>
                 </div>
-              </Card>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/50">
+        <section className="w-full py-24 sm:py-32 md:py-40 bg-muted/50">
           <div className="container px-4 max-w-7xl mx-auto">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Benefits for Every Client</h2>
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-24">
+            <span className={`${typography.sectionLabel} mb-3 block`}>
+                Why GuardTop
+            </span>
+              <h3 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Benefits for Every Client</h3>
               <p className="mt-4 text-lg text-muted-foreground">
                 We deliver exceptional value through our comprehensive roofing solutions
               </p>
             </div>
-            
-            <div className="grid gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
-              <Card className="relative overflow-hidden border-2 hover:border-primary/50 transition-colors">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                      <Home className="h-6 w-6 text-primary" />
-                    </div>
-                    <CardTitle className="text-2xl">For Homeowners</CardTitle>
-                  </div>
-                  <p className="text-muted-foreground">
-                    Tailored solutions that protect your most valuable asset
-                  </p>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid gap-4">
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium leading-none mb-1">Unmatched Reliability</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Industry-leading materials and installation techniques for lasting protection
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium leading-none mb-1">Comprehensive Warranty</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Complete peace of mind with our extensive warranty coverage
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium leading-none mb-1">Expert Installation</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Certified professionals ensuring perfect execution every time
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium leading-none mb-1">Personalized Solutions</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Custom approaches tailored to your home's unique requirements
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
 
-              <Card className="relative overflow-hidden border-2 hover:border-primary/50 transition-colors">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                      <Building2 className="h-6 w-6 text-primary" />
+            {/* Residential Benefits */}
+            <div className="grid gap-16 lg:grid-cols-2 max-w-6xl mx-auto mb-32 items-center">
+              {/* Left Column - Benefits List */}
+              <div className="space-y-12">
+                <div>
+                  <h3 className="text-3xl font-bold tracking-tight mb-2">For Homeowners</h3>
+                  <p className="text-lg text-muted-foreground">Tailored solutions that protect your most valuable asset</p>
+                </div>
+                
+                <div className="space-y-8">
+                  <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                      <span className="text-lg font-semibold text-primary">01</span>
                     </div>
-                    <CardTitle className="text-2xl">For Commercial Properties</CardTitle>
-                  </div>
-                  <p className="text-muted-foreground">
-                    Enterprise solutions for maximum efficiency and durability
-                  </p>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid gap-4">
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium leading-none mb-1">Cost-Effective Durability</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Long-term solutions that reduce maintenance costs and extend roof life
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium leading-none mb-1">Project Management</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Strict timeline adherence with minimal business disruption
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium leading-none mb-1">Scale & Compliance</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Handling any project size while meeting all industry regulations
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="h-2 w-2 mt-2 rounded-full bg-primary shrink-0"></div>
-                      <div>
-                        <h4 className="font-medium leading-none mb-1">Energy Efficiency</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Modern solutions that reduce energy costs and environmental impact
-                        </p>
-                      </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Unmatched Reliability</h4>
+                      <p className="text-muted-foreground">
+                        Industry-leading materials and installation techniques for lasting protection
+                      </p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                  
+                  <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                      <span className="text-lg font-semibold text-primary">02</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Comprehensive Warranty</h4>
+                      <p className="text-muted-foreground">
+                        Complete peace of mind with our extensive warranty coverage
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                      <span className="text-lg font-semibold text-primary">03</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Expert Installation</h4>
+                      <p className="text-muted-foreground">
+                        Certified professionals ensuring perfect execution every time
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                      <span className="text-lg font-semibold text-primary">04</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Personalized Solutions</h4>
+                      <p className="text-muted-foreground">
+                        Custom approaches tailored to your home's unique requirements
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Image */}
+              <div className="relative h-[520px] rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="/images/residential-roofing.jpg"
+                  alt="Professional Residential Roofing"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center px-6">
+                    <p className="text-3xl font-bold text-white tracking-wider mb-4">FINANCING AVAILABLE</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Commercial Benefits */}
+            <div className="grid gap-16 lg:grid-cols-2 max-w-6xl mx-auto items-center">
+              {/* Left Column - Image */}
+              <div className="relative h-[520px] rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="/images/commercial-roofing.jpg"
+                  alt="Professional Commercial Roofing"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center px-6">
+                    <p className="text-3xl font-bold text-white tracking-wider">ENTERPRISE SOLUTIONS</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Benefits List */}
+              <div className="space-y-12">
+                <div>
+                  <h3 className="text-3xl font-bold tracking-tight mb-2">For Commercial Properties</h3>
+                  <p className="text-lg text-muted-foreground">Enterprise solutions for maximum efficiency and durability</p>
+                </div>
+                
+                <div className="space-y-8">
+                  <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                      <span className="text-lg font-semibold text-primary">01</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Cost-Effective Durability</h4>
+                      <p className="text-muted-foreground">
+                        Long-term solutions that reduce maintenance costs and extend roof life
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                      <span className="text-lg font-semibold text-primary">02</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Project Management</h4>
+                      <p className="text-muted-foreground">
+                        Strict timeline adherence with minimal business disruption
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                      <span className="text-lg font-semibold text-primary">03</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Scale & Compliance</h4>
+                      <p className="text-muted-foreground">
+                        Handling any project size while meeting all industry regulations
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                      <span className="text-lg font-semibold text-primary">04</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Energy Efficiency</h4>
+                      <p className="text-muted-foreground">
+                        Modern solutions that reduce energy costs and environmental impact
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -542,142 +547,23 @@ export default function Homepage() {
           </div>
         </section>
 
-        <section id="projects" className="w-full py-24 sm:py-32 bg-muted/30">
-          <div className="container px-4 max-w-7xl mx-auto">
-            <div className="mx-auto max-w-3xl text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Featured Projects</h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Discover our commitment to excellence through our recent transformative projects
-              </p>
-            </div>
-            
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-              <Card className="group overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image 
-                    src="/placeholder.svg" 
-                    alt="Luxury Home Renovation" 
-                    width={600} 
-                    height={400} 
-                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="px-3 py-1 text-xs font-medium bg-primary/90 text-white rounded-full">
-                      Residential
-                    </span>
-                  </div>
-                </div>
-                <CardContent className="p-6 space-y-4">
-                  <h3 className="text-xl font-bold tracking-tight">Luxury Home Renovation in Malibu</h3>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Home className="h-4 w-4" />
-                      <span>7,500 sq ft Beachfront Property</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground line-clamp-3">
-                      Complete roof replacement featuring premium slate tiles, custom copper gutters, and a state-of-the-art waterproofing system to withstand coastal weather conditions.
-                    </p>
-                  </div>
-                  <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
-                    View Project Details
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="group overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image 
-                    src="/placeholder.svg" 
-                    alt="Corporate Office Complex" 
-                    width={600} 
-                    height={400} 
-                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="px-3 py-1 text-xs font-medium bg-primary/90 text-white rounded-full">
-                      Commercial
-                    </span>
-                  </div>
-                </div>
-                <CardContent className="p-6 space-y-4">
-                  <h3 className="text-xl font-bold tracking-tight">Downtown LA Office Tower</h3>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Building2 className="h-4 w-4" />
-                      <span>75,000 sq ft Commercial Building</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground line-clamp-3">
-                      Installation of a cutting-edge green roofing system, incorporating solar panels, rainwater harvesting, and energy-efficient materials. Achieved LEED Platinum certification.
-                    </p>
-                  </div>
-                  <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
-                    View Project Details
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="group overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image 
-                    src="/placeholder.svg" 
-                    alt="Multi-Family Complex" 
-                    width={600} 
-                    height={400} 
-                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="px-3 py-1 text-xs font-medium bg-primary/90 text-white rounded-full">
-                      Multi-Family
-                    </span>
-                  </div>
-                </div>
-                <CardContent className="p-6 space-y-4">
-                  <h3 className="text-xl font-bold tracking-tight">Beverly Hills Apartment Complex</h3>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Building2 className="h-4 w-4" />
-                      <span>12-Unit Luxury Complex</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground line-clamp-3">
-                      Modern roofing solution with premium materials, integrated solar systems, and advanced drainage design for maximum efficiency and durability.
-                    </p>
-                  </div>
-                  <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
-                    View Project Details
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="text-center mt-12">
-              <Button size="lg" variant="default" className="px-8">
-                View All Projects
-              </Button>
-            </div>
-          </div>
-        </section>
+        <ProjectsSection />
 
         <section id="testimonials" className="w-full py-24 sm:py-32 bg-muted/30">
           <div className="container px-4 max-w-7xl mx-auto">
-            <div className="mx-auto max-w-3xl text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className={`${typography.sectionLabel} mb-3 block`}>
+                Testimonials
+              </span>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
                 What Our Clients Say
               </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="text-base text-muted-foreground leading-relaxed mb-16">
                 Real feedback from satisfied customers who trust our roofing expertise
               </p>
             </div>
 
             <TestimonialsCarousel />
-
-            <div className="text-center mt-12">
-              <Button variant="outline" size="lg" className="px-8 hover:bg-primary hover:text-white transition-colors">
-                Read More Reviews
-              </Button>
-            </div>
           </div>
         </section>
 
@@ -744,7 +630,7 @@ export default function Homepage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="service" className="text-sm font-medium leading-none">
+                  <label htmlFor="service" className={typography.small}>
                     Service Needed
                   </label>
                   <select 
@@ -800,10 +686,10 @@ export default function Homepage() {
                     <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="mb-2 font-semibold tracking-tight">Call Us Anytime</h3>
+                    <h3 className={`${typography.h4} mb-2`}>Call Us Anytime</h3>
                     <Link 
                       href="tel:+1234567890" 
-                      className="text-base text-muted-foreground hover:text-primary transition-colors"
+                      className={typography.link}
                     >
                       (123) 456-7890
                     </Link>
@@ -816,10 +702,10 @@ export default function Homepage() {
                     <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
                       <Mail className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="mb-2 font-semibold tracking-tight">Email Us</h3>
+                    <h3 className={`${typography.h4} mb-2`}>Email Us</h3>
                     <Link 
                       href="mailto:info@guardtop.com" 
-                      className="text-base text-muted-foreground hover:text-primary transition-colors"
+                      className={typography.link}
                     >
                       info@guardtop.com
                     </Link>
@@ -832,7 +718,7 @@ export default function Homepage() {
                     <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
                       <Clock className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="mb-2 font-semibold tracking-tight">Business Hours</h3>
+                    <h3 className={`${typography.h4} mb-2`}>Business Hours</h3>
                     <div className="space-y-1">
                       <p className="text-base text-muted-foreground">Mon-Fri: 8am - 6pm</p>
                       <p className="text-sm text-muted-foreground">Sat-Sun: Closed</p>
@@ -848,8 +734,8 @@ export default function Homepage() {
         <div className="container px-4 py-12 md:py-16 max-w-7xl mx-auto">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">About Us</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className={typography.h4}>About Us</h3>
+              <p className={typography.small}>
                 Professional roofing solutions with over 20 years of experience serving our community.
               </p>
               <div className="flex space-x-4">
@@ -869,53 +755,69 @@ export default function Homepage() {
             </div>
             
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Services</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className={typography.h4}>Services</h3>
+              <ul className="space-y-2">
                 <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">Residential Roofing</Link>
+                  <Link href="#" className={typography.link}>
+                    Residential Roofing
+                  </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">Commercial Roofing</Link>
+                  <Link href="#" className={typography.link}>
+                    Commercial Roofing
+                  </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">Roof Repairs</Link>
+                  <Link href="#" className={typography.link}>
+                    Roof Repairs
+                  </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">Maintenance</Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Support</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">Contact Us</Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">FAQs</Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">Free Estimate</Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">Emergency Service</Link>
+                  <Link href="#" className={typography.link}>
+                    Maintenance
+                  </Link>
                 </li>
               </ul>
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Contact</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className={typography.h4}>Support</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="#" className={typography.link}>
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className={typography.link}>
+                    FAQs
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className={typography.link}>
+                    Free Estimate
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className={typography.link}>
+                    Emergency Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className={typography.h4}>Contact</h3>
+              <ul className="space-y-2">
                 <li className="text-muted-foreground">123 Roofing Street</li>
                 <li className="text-muted-foreground">Los Angeles, CA 90001</li>
                 <li>
-                  <Link href="tel:+1234567890" className="text-muted-foreground hover:text-primary">
+                  <Link href="tel:+1234567890" className={typography.link}>
                     (123) 456-7890
                   </Link>
                 </li>
                 <li>
-                  <Link href="mailto:info@guardtop.com" className="text-muted-foreground hover:text-primary">
+                  <Link href="mailto:info@guardtop.com" className={typography.link}>
                     info@guardtop.com
                   </Link>
                 </li>

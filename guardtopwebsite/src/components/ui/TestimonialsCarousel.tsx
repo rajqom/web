@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { Card } from './card'
+import { useState, useRef, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
+import Image from 'next/image'
 
 const testimonials = [
   {
@@ -11,65 +11,76 @@ const testimonials = [
     role: "Malibu Homeowner",
     initials: "JD",
     quote: "GuardTop Roofing exceeded our expectations with their attention to detail and professional service.",
-    rating: 5
+    rating: 5,
+    image: "/images/testimonials/image1.jpg"
   },
   {
     id: 2,
-    name: "Sarah Johnson",
-    role: "Property Manager",
-    initials: "SJ",
+    name: "Jimmy Elizarazzas",
+    role: "Private Homeowner",
+    initials: "JE",
     quote: "Expert commercial roofing team. On-time delivery and within budget. Highly recommended!",
-    rating: 5
+    rating: 5,
+    image: "/images/testimonials/image2.jpg"
   },
   {
     id: 3,
-    name: "Robert Martinez",
+    name: "Sarah James",
     role: "Business Owner",
-    initials: "RM",
+    initials: "SJ",
     quote: "Outstanding quality and customer service. Best roofing investment for our business.",
-    rating: 5
+    rating: 5,
+    image: "/images/testimonials/image3.jpg"
   },
   {
     id: 4,
-    name: "Emily Wilson",
+    name: "Khadija Muhammed",
     role: "Homeowner",
-    initials: "EW",
+    initials: "KM",
     quote: "Their team was professional, efficient, and delivered exceptional results on our roof replacement.",
-    rating: 5
+    rating: 5,
+    image: "/images/testimonials/image4.jpg"
   },
   {
     id: 5,
-    name: "Michael Chang",
+    name: "Ketut Subiyanto",
     role: "Real Estate Developer",
-    initials: "MC",
+    initials: "KS",
     quote: "Reliable, professional, and excellent communication throughout our commercial project.",
-    rating: 5
+    rating: 5,
+    image: "/images/testimonials/image5.jpg"
   },
   {
     id: 6,
-    name: "Lisa Anderson",
+    name: "Olusupo Jaiyeola",
     role: "Property Owner",
-    initials: "LA",
+    initials: "OJ",
     quote: "The attention to detail and quality of work was impressive. Highly satisfied with the results.",
-    rating: 5
+    rating: 5,
+    image: "/images/testimonials/image6.jpg"
   }
 ]
 
-export function TestimonialsCarousel() {
+export function TestimonialsCarousel({ width: initialWidth }: { width?: number }) {
   const [currentPage, setCurrentPage] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [width, setWidth] = useState(initialWidth)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const itemsPerPage = {
-    mobile: 1,
-    tablet: 2,
-    desktop: 3
-  }
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setWidth(containerRef.current.offsetWidth)
+      }
+    }
 
-  const totalPages = Math.ceil(testimonials.length / itemsPerPage.desktop)
+    updateWidth()
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
+  }, [])
 
   const handleNext = () => {
-    if (isAnimating || currentPage >= totalPages - 1) return
+    if (isAnimating || currentPage >= testimonials.length - 1) return
     setIsAnimating(true)
     setCurrentPage(prev => prev + 1)
     setTimeout(() => setIsAnimating(false), 500)
@@ -82,76 +93,81 @@ export function TestimonialsCarousel() {
     setTimeout(() => setIsAnimating(false), 500)
   }
 
-  const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] }) => (
-    <Card className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] p-6 border bg-background shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-out">
-      <div className="flex gap-1 mb-3">
-        {[...Array(testimonial.rating)].map((_, i) => (
-          <Star 
-            key={i} 
-            className="h-4 w-4 text-amber-400 fill-amber-400"
-          />
-        ))}
-      </div>
-      <blockquote className="text-base font-medium mb-4 line-clamp-3">
-        "{testimonial.quote}"
-      </blockquote>
-      <div className="flex items-center gap-3">
-        <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
-          <span className="text-sm font-semibold">{testimonial.initials}</span>
-        </div>
-        <div>
-          <div className="font-semibold text-sm">{testimonial.name}</div>
-          <div className="text-xs text-muted-foreground">{testimonial.role}</div>
-        </div>
-      </div>
-    </Card>
-  )
-
   return (
-    <div className="relative max-w-5xl mx-auto px-12">
-      <button 
-        onClick={handlePrev}
-        disabled={currentPage === 0}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center rounded-full bg-background shadow-lg border hover:border-primary/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-        aria-label="Previous testimonials"
-      >
-        <ChevronLeft className="h-5 w-5 text-primary" />
-      </button>
+    <div className="relative max-w-4xl mx-auto">
+      <div className="grid gap-16 lg:grid-cols-2 items-center">
+        {/* Left Column - Image */}
+        <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted">
+          <Image
+            src={testimonials[currentPage].image}
+            alt={testimonials[currentPage].name}
+            fill
+            className="object-cover transition-opacity duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        </div>
 
-      <div className="overflow-hidden">
-        <div 
-          ref={containerRef}
-          className="flex gap-6 transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${currentPage * 100}%)` }}
-        >
-          {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+        {/* Right Column - Content */}
+        <div className="space-y-6">
+          <div className="flex gap-1">
+            {[...Array(testimonials[currentPage].rating)].map((_, i) => (
+              <Star 
+                key={i} 
+                className="h-5 w-5 text-yellow-400 fill-yellow-400"
+              />
+            ))}
+          </div>
+
+          <blockquote className="text-lg font-medium leading-relaxed">
+            {testimonials[currentPage].quote}
+          </blockquote>
+
+          <div className="space-y-1">
+            <div className="font-semibold text-lg">
+              {testimonials[currentPage].name}
+            </div>
+            <div className="text-muted-foreground">
+              {testimonials[currentPage].role}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Controls */}
+      <div className="flex items-center justify-between mt-12">
+        <div className="flex gap-2">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i)}
+              className={`h-2 rounded-full transition-all duration-200 ${
+                i === currentPage 
+                  ? 'w-8 bg-primary' 
+                  : 'w-2 bg-primary/20 hover:bg-primary/40'
+              }`}
+              aria-label={`Go to testimonial ${i + 1}`}
+            />
           ))}
         </div>
-      </div>
 
-      <button 
-        onClick={handleNext}
-        disabled={currentPage >= totalPages - 1}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center rounded-full bg-background shadow-lg border hover:border-primary/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-        aria-label="Next testimonials"
-      >
-        <ChevronRight className="h-5 w-5 text-primary" />
-      </button>
-
-      <div className="flex justify-center gap-3 mt-10">
-        {[...Array(totalPages)].map((_, i) => (
+        <div className="flex gap-4">
           <button
-            key={i}
-            onClick={() => setCurrentPage(i)}
-            className={`h-2 rounded-full transition-all ${
-              i === currentPage 
-                ? 'w-6 bg-primary' 
-                : 'w-2 bg-primary/20 hover:bg-primary/40'
-            }`}
-            aria-label={`Go to testimonial page ${i + 1}`}
-          />
-        ))}
+            onClick={handlePrev}
+            disabled={currentPage === 0}
+            className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-primary hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Previous testimonial"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={currentPage >= testimonials.length - 1}
+            className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-primary hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Next testimonial"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
       </div>
     </div>
   )
